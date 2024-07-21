@@ -1,5 +1,5 @@
 // import fetch from "node-fetch";
-import { myFunction, getResponse } from "./apiModule.js";
+import { getResponseServer } from "./apiModule.js";
 let bot_default_message = `To ensure that messages in the chat interface wrap and display as multiline when the text is too long to fit in one line, you need to update the CSS to allow for word wrapping and handling overflow appropriately.
 
 Here’s how you can adjust the CSS to ensure that messages are displayed in multiple lines within the chat interface: `
@@ -21,7 +21,7 @@ for (let messageElement of messagesContainer.children){
     // autoResizeTextarea()
     idCounter++
 }
-
+ 
 // add evenListener
 messageElement.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
@@ -42,9 +42,10 @@ async function logEvent(text){
         // bot already exists at target.counter + 1; put text there
         // const responseGPT = await makeApiCall(target.textContent.trim());
         // const final_text = responseGPT.message.content.trim();
-        let final_text = await getResponse(text.trim());
+        let final_text = await getResponseServer(text.trim());
+        final_text = final_text.trim()
         // final_text = JSON.stringify(final_text);
-        final_text = final_text[0].generated_text.trim()
+        // final_text = final_text[0].generated_text.trim()
         // console.log(final_text)
         messagesContainer.children[target.counter+1].textContent = final_text // bot textarea; 0 indexing
         // autoResizeTextarea(); // readjust the boxes 
@@ -55,9 +56,10 @@ async function logEvent(text){
         // const responseGPT = await makeApiCall(target.textContent.trim());
         // const final_text = responseGPT.message.content.trim();
         // const final_text = bot_default_message.trim();
-        let final_text = await getResponse(text.trim());
+        let final_text = await getResponseServer(text.trim());
+        final_text = final_text.trim()
         // final_text = JSON.stringify(final_text);
-        final_text = final_text[0].generated_text.trim()
+        // final_text = final_text[0].generated_text.trim()
         console.log(final_text)
         let messageElement = addMessage('bot', final_text); // add bot textarea
         
