@@ -161,7 +161,8 @@ async function handleDOMContentLoaded() {
     async function createMessageElement(role, pretext){
         let messageElement = document.createElement('div');
         if (role==='bot'){
-            messageElement.classList.add('message', role);
+            messageElement.classList.add('editable', 'message', role);
+            messageElement.contentEditable = true;
             // messageElement.textContent = pretext + '\n\n' + (await getDummyMessage())
             messageElement.textContent = await getResponseServer(pretext)
         } else {
