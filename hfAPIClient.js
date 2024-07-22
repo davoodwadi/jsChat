@@ -49,11 +49,11 @@ messageElement.addEventListener('keydown', function (event) {
 
 const systemTemplate = `<|start_header_id|>system<|end_header_id|>\n{text}<|eot_id|>\n\n`;
 const systemMessage = `You are a helpful assistant. You respond with brief, to the point, and useful responses.`;
+const systemPrompt = systemTemplate.replace('{text}', systemMessage);
 const userTemplate = `<|start_header_id|>user<|end_header_id|>\n\`\`\`{text}\`\`\`<|eot_id|>\n\n`;
 const assistantTag = `<|start_header_id|>assistant<|end_header_id|>\n`
 const assistantEOT = `<|eot_id|>\n\n`
-
-const systemPrompt = systemTemplate.replace('{text}', systemMessage);
+const assistantPrompt = `${assistantTag}{text}${assistantEOT}`
 
 function createMessagesUpToThisPoint(target){
     // reset allMessages each time
