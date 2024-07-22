@@ -3,25 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Chat Interface</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Combined Column and Branched Chat Interface</title>
+    <link rel="stylesheet" href="branching.css">
 </head>
 <body>
     <div id="chat-container">
         <div id="chat-box">
             <div id="messages">
-                <div id="first-message" class="editable message user" contenteditable="true" data-placeholder="First message"></div>
-                <!-- <div class="message bot dots-message">
-                    <div class="dots-container">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                </div> -->
-
+                <div class="branch-container">
+                    <div class="branch">
+                        <div id="first-message" class="editable message user" contenteditable="true" data-placeholder="New message"></div>
+                    </div>  
+                </div>  
             </div>
         </div>
     </div>
-    <script src="hfAPIClient.js" type="module"></script>
+    <script type="module" src="branching.js"></script>
 </body>
 </html>

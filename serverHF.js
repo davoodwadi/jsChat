@@ -1,7 +1,7 @@
 // server.js
 import express from 'express';
 import cors from 'cors';
-import { OpenAI } from 'openai';
+// import { OpenAI } from 'openai';
 
 import fetch from 'node-fetch';
 
@@ -11,7 +11,7 @@ const port = 4000;
 app.use(cors());
 // Middleware to parse JSON bodies
 app.use(express.json());
-const openai = new OpenAI();
+// const openai = new OpenAI();
 
 const myVariable = process.env.HF_TOKEN;
 // HF-api endpoint
