@@ -45,6 +45,17 @@ app.post('/api/hf/completions', async (req, res) => {
     }
 });
 
+app.get('/api/hf/completions', async (req, res) => {
+    try {
+        console.log('welcome to node.js')
+        res.json('welcome to njs')
+
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });

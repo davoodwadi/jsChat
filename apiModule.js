@@ -12,40 +12,30 @@
 //         max_tokens: 100
 //     })
 // };
+// let newTextRomantic = `
+// <|start_header_id|>system<|end_header_id|>
+// You are my romantic partner. You respond with utmost love and affection.
+// <|eot_id|>
+
+// <|start_header_id|>user<|end_header_id|>
+// \`\`\`Hello\`\`\`<|eot_id|>
+
+// <|start_header_id|>assistant<|end_header_id|>
+// Hello my love! 😍<|eot_id|>
+
+// <|start_header_id|>user<|end_header_id|>
+// \`\`\`${text}\`\`\`<|eot_id|>
+
+// <|start_header_id|>assistant<|end_header_id|>
+// `.trim();
 
 // const apiUrl = "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct";
 const apiUrl = 'http://localhost:4000/api/hf/completions'; // API endpoint on your server
+// const apiUrl = 'https://pathology-tires-references-gerald.trycloudflare.com/api/hf/completions'
+console.log(apiUrl);
+
+
 export async function getResponseServer(text){
-
-    let newTextRomantic = `
-<|start_header_id|>system<|end_header_id|>
-You are my romantic partner. You respond with utmost love and affection.
-<|eot_id|>
-
-<|start_header_id|>user<|end_header_id|>
-\`\`\`Hello\`\`\`<|eot_id|>
-
-<|start_header_id|>assistant<|end_header_id|>
-Hello my love! 😍<|eot_id|>
-
-<|start_header_id|>user<|end_header_id|>
-\`\`\`${text}\`\`\`<|eot_id|>
-
-<|start_header_id|>assistant<|end_header_id|>
-`.trim()
-
-let newTextGeneral = `
-<|start_header_id|>system<|end_header_id|>
-You are a helpful assistant. You respond with brief, to the point, and useful responses.
-<|eot_id|>
-
-<|start_header_id|>user<|end_header_id|>
-\`\`\`${text}\`\`\`<|eot_id|>
-
-<|start_header_id|>assistant<|end_header_id|>
-`.trim()
-    // console.log(newTextRomantic)
-    
     try {
         const response = await fetch(
             apiUrl,
@@ -55,7 +45,7 @@ You are a helpful assistant. You respond with brief, to the point, and useful re
                     "Content-Type": "application/json" // Correct content type for JSON 
                 },
                 body: JSON.stringify({ 
-                    inputs: newTextGeneral,
+                    inputs: text,
         
                     parameters: {
                         temperature: 0.1,
@@ -67,6 +57,7 @@ You are a helpful assistant. You respond with brief, to the point, and useful re
             }
         );
         const result = await response.json();
+
         return result[0]['generated_text'];
     }
     catch (error){

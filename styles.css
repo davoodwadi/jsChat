@@ -35,6 +35,7 @@ body {
     overflow-y: auto; /* Ensure messages container can scroll */
     max-height: calc(100% - 50px); /* Adjust max-height as needed */
     padding: 10px; /* Add padding for spacing */
+    /* background-color: red; */
     /* min-height: 300px; Ensure minimum height is set to 300px */
 }
 
@@ -50,26 +51,30 @@ body {
     resize: none; /* Prevent manual resizing */
     overflow-y: auto; /* Allow vertical scrolling */
     min-height: 70px; /*Min height */
+    max-height: 700%;
+    width: 100%;
 }
 
 .message.user {
     align-self: center;
     background-color: #007aff; /* iPhone message blue */
     color: #ffffff;
+    border-radius: 10px;
 }
 
 .message.bot {
     align-self: center;
     background-color: #444; /* Grey background for bot messages */
     color: #ffffff;
+    border-radius: 10px;
 }
 
 .editable {
-    width: 90%;
+    /* width: 90%; */
     height: 150px;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    /* border: 1px solid #ccc; */
+    border-radius: 10px;
     background-color: #fff;
     overflow: auto;
     outline: none;
@@ -90,17 +95,6 @@ body {
     border-top: 1px solid #333;
 }
 
-/* #message-input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    margin-right: 10px;
-    font-size: 16px;
-    background-color: #2b2b2b;
-    color: #ffffff;
-} */
-
 #message-input {
     flex: 1;
     resize: none; /* Prevent manual resizing */
@@ -120,17 +114,36 @@ body {
 #message-input::placeholder {
     color: #888;
 }
-
-#send-button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+.dots-message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #e1ffc7; */
+    /* padding: 10px; */
+    border-radius: 10px;
+    position: relative;
+    /* max-width: 80%; */
+    margin-bottom: 10px;
+    
 }
-
-#send-button:hover {
-    background-color: #0056b3;
+.dots-container {
+    display: flex;
+    gap: 8px;
+}
+.dot {
+    width: 8px;
+    height: 8px;
+    background-color: #d6e2ef;
+    border-radius: 50%;
+    animation: bounce 1.4s infinite;
+}
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.5); }
 }
