@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Renderer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #markdown-content {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div id="markdown-content">
+        <!-- The Markdown content will be rendered here -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Example Markdown text
+            const markdownText = `
+            # Hello World
+            This is **bold** text and this is *italic* text.
+            - Item 1
+            - Item 2
+            - Item 3
+            [OpenAI](https://www.openai.com)
+            `;
+
+            // Check if the marked library is loaded
+            if (typeof marked !== 'undefined') {
+                // Convert Markdown to HTML
+                const htmlContent = marked(markdownText);
+
+                // Render HTML content in the div
+                document.getElementById('markdown-content').innerHTML = htmlContent;
+            } else {
+                console.error('Marked library is not loaded.');
+            }
+        });
+    </script>
+</body>
+</html>

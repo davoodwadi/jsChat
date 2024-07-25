@@ -179,7 +179,7 @@ async function handleDOMContentLoaded() {
             
         } else if ( target.role==='user') { // latest and user
             console.log('fresh text')
-            // messageElementInputBranch = target;
+            messageElementInputBranch = target;
             // add branch
             // branch = document.createElement('div')
             // branch.classList.add('branch')
@@ -198,7 +198,6 @@ async function handleDOMContentLoaded() {
             // add bot message and followup user message
             messageElement = await createMessageElement('bot', messages);
             branch.replaceChild(messageElement, dots)
-            messageElementInputBranch = messageElement;
             // branch.appendChild(messageElement);
 
 
@@ -221,7 +220,7 @@ async function handleDOMContentLoaded() {
 
         // focus on the new branch
         // messageElementInputBranch.setAttribute('tabindex', '-1'); // Make it focusable
-        messageElementInputBranch.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'center' })
+        messageElementInputBranch.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'center' })
         // console.log('focused on input')
     };
 
