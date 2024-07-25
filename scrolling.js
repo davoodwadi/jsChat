@@ -17,9 +17,21 @@ const baseMessageWidth = screenWidth*2/3;
 async function handleDOMContentLoaded() {
     let messageElement = document.getElementById('first-message')
     let topBranch = messageElement.parentElement;
+    const messagesContainer = document.getElementById('messages')
+    const chatContainer = document.getElementById('chat-container')
+
+    // focus on first input on loading
     const chatBox = document.getElementById('chat-box')
     chatBox.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    // console.log(messageElement.textContent)
+
+    // set initial canvas width
+    let canvasWidth = screenWidth;
+    const setCanvasWidth = (width) => {
+        document.body.style.width = `${width}px`
+    };
+    setCanvasWidth(canvasWidth);
+    console.log('documentBody.width')
+    console.log(document.body.style.width)    
 
     const dots = createDots();
     
@@ -30,6 +42,27 @@ async function handleDOMContentLoaded() {
     messageElement.counter = idCounter
     messageElement.name = `${messageElement.role}-${idCounter}`
     idCounter++
+
+    const getWidthTopBranch = ()=>{
+    // get top branch width
+    console.log('window.innerWidth')
+    console.log(window.innerWidth)
+    console.log('messagesContainer.scrollWidth')
+    console.log(messagesContainer.scrollWidth)
+    console.log('chatContainer.scrollWidth')
+    console.log(chatContainer.scrollWidth)
+
+    
+    // let topWidthsArray = Array.from(topBranch.children)
+    // topWidthsArray = topWidthsArray.map(el => el.style.width)
+    // topWidthsArray = topWidthsArray.map(el => parseFloat(el.split('px')[0]))
+    // console.log('topWidthsArray')
+    // console.log(topWidthsArray)
+    // let topWidths = topWidthsArray.reduce((accumulator, current)=> accumulator+current, 0)
+    // console.log('topWidths')
+    // console.log(topWidths)
+    return messagesContainer.scrollWidth
+    }
 
     function getRandomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -75,6 +108,7 @@ async function handleDOMContentLoaded() {
         let target = event.target
         let branch = target.parentElement
         let branchContainer = branch.parentElement
+        let messageElementInputBranch
         // console.log(branch.classList.contains('branch'))
         // console.log(branchContainer.classList.contains('branch-container'))
         
@@ -89,13 +123,14 @@ async function handleDOMContentLoaded() {
             branch.classList.add('branch')
             branchContainer.appendChild(branch)
             // add modified target
-            messageElement = await createMessageElement('user');
+            messageElementInputBranch = await createMessageElement('user');
             // modified text
-            messageElement.textContent = target.textContent;
+            messageElementInputBranch.textContent = target.textContent;
             // replace old content
-            messageElement.oldContent = messageElement.textContent
-            messageElement.triggeredBefore = true;
-            branch.appendChild(messageElement);
+            messageElementInputBranch.oldContent = messageElementInputBranch.textContent
+            messageElementInputBranch.triggeredBefore = true;
+            branch.appendChild(messageElementInputBranch);
+            
             // set the old content
             console.log(`setting target's content to ${oldContent}`)
             // put original message in original box
@@ -113,34 +148,21 @@ async function handleDOMContentLoaded() {
             parentMessage.map(el => el.style.width = `${baseMessageWidth*2}px`)
             console.log('after')
             console.log(parentMessage.map(el => el.style.width));
-            // for (const child of parentBranch.children){
-            //     console.log('child.classList')
-            //     // console.log(JSON.stringify(child.classList))
-            //     console.log(child)
-            // }
-            // get parent bot of the target
-
-            
-
 
             // add dots
             branch.appendChild(dots)
 
             // get llm messages
-            const elementArray = createElementArray(messageElement)
+            const elementArray = createElementArray(messageElementInputBranch)
             // console.log(elementArray)
             let messages = createMessageChain(elementArray)
             messages += assistantTag
             console.log(messages)
 
-            // add bot and empty user 
-            messageElement = await createMessageElement('bot', messages);
-            branch.replaceChild(messageElement, dots)
-            // branch.appendChild(messageElement);
-
-            // // set the old content
-            // console.log(`setting target's content to ${oldContent}`)
-            // target.textContent = oldContent
+            // add bot and empty user
+            const messageElementBot = await createMessageElement('bot', messages);
+            branch.replaceChild(messageElementBot, dots)
+            
             
             // create branch-container within branch.        
             let newBranchContainer = document.createElement('div');
@@ -151,12 +173,13 @@ async function handleDOMContentLoaded() {
             newBranch.classList.add('branch');
             newBranchContainer.appendChild(newBranch)
 
-            messageElement = await createMessageElement('user');
-            newBranch.appendChild(messageElement);
-
+            const messageElementInputNew = await createMessageElement('user');
+            newBranch.appendChild(messageElementInputNew);
+            
             
         } else if ( target.role==='user') { // latest and user
             console.log('fresh text')
+            messageElementInputBranch = target;
             // add branch
             // branch = document.createElement('div')
             // branch.classList.add('branch')
@@ -191,7 +214,14 @@ async function handleDOMContentLoaded() {
             newBranch.appendChild(messageElement);
 
         }
-        target.triggeredBefore = true
+        target.triggeredBefore = true;
+        const horizontalWidth = getWidthTopBranch();
+        setCanvasWidth(horizontalWidth);
+
+        // focus on the new branch
+        // messageElementInputBranch.setAttribute('tabindex', '-1'); // Make it focusable
+        messageElementInputBranch.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' })
+        console.log('focused on input')
     };
 
     
