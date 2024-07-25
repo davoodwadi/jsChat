@@ -242,8 +242,8 @@ async function handleDOMContentLoaded() {
             messageElement.style.width = `${baseMessageWidth}px`
             messageElement.contentEditable = true;
             // messageElement.textContent = pretext + '\n\n' + (await getDummyMessage())
-            messageElement.textContent = await generateRandomVariableText()
-            // messageElement.textContent = await getResponseServer(pretext)
+            // messageElement.textContent = await generateRandomVariableText()
+            messageElement.textContent = await getResponseServer(pretext)
         } else {
             messageElement.classList.add('editable', 'message', role);
             messageElement.style.width = `${baseMessageWidth}px`

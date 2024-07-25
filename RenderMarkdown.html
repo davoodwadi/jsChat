@@ -20,9 +20,14 @@
     <div id="markdown-content">
         <!-- The Markdown content will be rendered here -->
     </div>
+    <div id="raw-content">
+        
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script>
+    <script type="module" src="RenderMarkdown.js">
+    </script>
+    <!-- <script type="module">
+        import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
         document.addEventListener('DOMContentLoaded', function() {
             // Example Markdown text
             const markdownText = `
@@ -31,20 +36,19 @@
             - Item 1
             - Item 2
             - Item 3
-            [OpenAI](https://www.openai.com)
             `;
 
             // Check if the marked library is loaded
             if (typeof marked !== 'undefined') {
                 // Convert Markdown to HTML
                 const htmlContent = marked(markdownText);
-
+                console.log(JSON.stringify(htmlContent))
                 // Render HTML content in the div
                 document.getElementById('markdown-content').innerHTML = htmlContent;
             } else {
                 console.error('Marked library is not loaded.');
             }
         });
-    </script>
+    </script> -->
 </body>
 </html>
