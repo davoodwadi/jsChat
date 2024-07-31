@@ -12,7 +12,7 @@ const assistantPrompt = `${assistantTag}{text}${assistantEOT}`
 
 // get screen width
 const screenWidth = window.innerWidth;
-const baseMessageWidth = screenWidth*2/3;
+const baseMessageWidth = screenWidth/2;
 
 async function handleDOMContentLoaded() {
     let messageElement = document.getElementById('first-message')
@@ -70,7 +70,7 @@ async function handleDOMContentLoaded() {
     async function generateRandomVariableText(){
         var words =["The sky", "above", "the port","was", "the color of television", "tuned", "to", "a dead channel", ".", "All", "this happened", "more or less","." ,"I", "had", "the story", "bit by bit", "from various people", "and", "as generally", "happens", "in such cases", "each time", "it", "was", "a different story","." ,"It", "was", "a pleasure", "to", "burn"];
         var text = [];
-        var x = getRandomNumber(10,500);
+        var x = getRandomNumber(3,10);
         while(--x) text.push(words[Math.floor(Math.random() * words.length)]);
         const tFinal = text.join(' ');
         return new Promise(resolve => {
@@ -140,12 +140,17 @@ async function handleDOMContentLoaded() {
             const parentBranch = target.parentElement.parentElement.parentElement; // has user and bot
             const parentChildrenArray = Array.from(parentBranch.children);
             const parentMessage = parentChildrenArray.filter(child => child.classList.contains('message'));
-            
+            const branchContainerCurrent = parentChildrenArray.filter(child => child.classList.contains('branch-container'))[0];
             console.log('before')
             console.log(parentMessage.map(el => el.style.width));
+            console.log(parentMessage)
+            let numSiblings = branchContainerCurrent.children.length;
+            console.log('numSiblings')
+            console.log(numSiblings)
             // double parent message width
             parentMessage.map(el => el.style.width = `auto`)
-            parentMessage.map(el => el.style.width = `${baseMessageWidth*2}px`)
+            parentMessage.map(el => el.style.width = `${baseMessageWidth*(numSiblings+0.2)}px`)
+            // parentMessage.map(el => el.style.width = `${baseMessageWidth*2}px`)
             console.log('after')
             console.log(parentMessage.map(el => el.style.width));
 
@@ -242,8 +247,8 @@ async function handleDOMContentLoaded() {
             messageElement.style.width = `${baseMessageWidth}px`
             messageElement.contentEditable = true;
             // messageElement.textContent = pretext + '\n\n' + (await getDummyMessage())
-            // messageElement.textContent = await generateRandomVariableText()
-            messageElement.textContent = await getResponseServer(pretext)
+            messageElement.textContent = await generateRandomVariableText()
+            // messageElement.textContent = await getResponseServer(pretext)
         } else {
             messageElement.classList.add('editable', 'message', role);
             messageElement.style.width = `${baseMessageWidth}px`
