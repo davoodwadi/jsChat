@@ -32,18 +32,18 @@ const md = markdownIt({
 
 
 async function handleDOMContentLoaded() {
-    let messages = [
-        { role: "system", content: "You are a helpful assistant." },
-        { role: "user", content: 'Yo'},
-                        ]
-    console.log(messages)
-    const messagesJson = JSON.stringify(messages)
-    console.log(messagesJson)
-    const messagesRestored = messagesJson.json()
-    console.log(messagesRestored)
+    // let messages = [
+    //     { role: "system", content: "You are a helpful assistant." },
+    //     { role: "user", content: 'Yo'},
+    //                     ]
+    // console.log(messages)
+    // const messagesJson = JSON.stringify(messages)
+    // console.log(messagesJson)
+    // const messagesRestored = messagesJson.json()
+    // console.log(messagesRestored)
 
-    // test different prompts:
-    const systemMessageFull = `You are a helpful assistant. You respond to my questions with brief, to the point, and useful responses`;
+    // // test different prompts:
+    // const systemMessageFull = `You are a helpful assistant. You respond to my questions with brief, to the point, and useful responses`;
     const userText = `mamba install -c plotly plotly=5.23.0
 
                   __    __    __    __
