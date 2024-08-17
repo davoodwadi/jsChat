@@ -59,7 +59,10 @@ chatBoxContainer.style.fontSize = `${fontSize}px`
 console.log('chatBoxContainer.style.fontSize')
 console.log(chatBoxContainer.style.fontSize)
 
-
+let signupPage;
+let loginPage;
+let logoutContainer;
+let authenticateButtons;
 
 const gpt = true;
 const max_tokens = 2000;
@@ -280,7 +283,7 @@ async function handleDOMContentLoaded() {
     // 
     const authenticate = document.getElementById('authenticate')
 
-    const authenticateButtons = document.createElement('div')
+    authenticateButtons = document.createElement('div')
     authenticateButtons.id = 'authenticateButtons'
     authenticateButtons.classList.add('button-box')
 
@@ -294,9 +297,9 @@ async function handleDOMContentLoaded() {
     authenticateButtons.appendChild(loginButton)
 
 
-    let signupPage = createSignupPage()
-    let loginPage = createLoginPage()
-    let logoutContainer = createLogoutContainer()
+    signupPage = createSignupPage()
+    loginPage = createLoginPage()
+    logoutContainer = createLogoutContainer()
     // check if already logged in
     const profile = await getProfile()
     // remove loading screen dotsUser
